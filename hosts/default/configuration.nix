@@ -98,6 +98,7 @@
     packages = with pkgs; [
     brave
     opencode
+    uv
     #  thunderbird
     ];
   };
