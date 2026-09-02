@@ -1,6 +1,8 @@
-{ pkgs, inputs, ... }:
-
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     inputs.lazyvim.homeManagerModules.default
   ];
@@ -9,10 +11,15 @@
     enable = true;
 
     extras.lang.nix.enable = true;
-    
+
+    extras.lang.typst = {
+      enable = true;
+      installDependencies = true; # Install tinymist
+    };
+
     extras.lang.python = {
       enable = true;
-      installDependencies = true;        # Install ruff
+      installDependencies = true; # Install ruff
       installRuntimeDependencies = true; # Install python3
     };
 

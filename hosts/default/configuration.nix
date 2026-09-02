@@ -99,11 +99,16 @@
     brave
     opencode
     uv
+    docker
+    tmux
     #  thunderbird
     ];
   };
 
+  programs.nix-ld.enable = true;
+
   home-manager = {
+      useGlobalPkgs = true;
       extraSpecialArgs = { inherit inputs; };
       users = {
         "logan" = import ./home.nix;
@@ -153,4 +158,3 @@
   system.stateVersion = "26.05"; # Did you read the comment?
 
 }
-
