@@ -3,7 +3,7 @@
     enable = true;
 
     settings = {
-      theme = "catppuccin-mocha";
+      theme = "CLRS";
       font-family = "JetBrainsMono Nerd Font";
       font-size = 12;
     };
