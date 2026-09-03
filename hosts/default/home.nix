@@ -5,6 +5,7 @@
     ../../modules/home-manager/lazyvim.nix
     ../../modules/home-manager/github.nix
     ../../modules/home-manager/agents.nix
+    ../../modules/home-manager/ghostty.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

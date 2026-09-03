@@ -124,8 +124,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
-    ghostty  
     wl-clipboard
+
 #  wget
   ];
 
