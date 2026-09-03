@@ -97,7 +97,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     brave
-    opencode
     uv
     docker
     tmux
