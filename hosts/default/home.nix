@@ -24,6 +24,11 @@
     "org/gnome/desktop/input-sources" = {
       xkb-options = ["caps:swapescape"];
     };
+
+    "org/gnome/desktop/peripherals/keyboard" = {
+      delay = 100;
+      repeat-interval = 70;
+    };
   };
   # The home.packages option allows you to install Nix packages into your
   # environment.

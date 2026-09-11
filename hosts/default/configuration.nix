@@ -66,6 +66,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.brlaser ];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -90,6 +91,7 @@
   # services.xserver.libinput.enable = true;
 
 
+  services.tailscale.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."logan" = {
     isNormalUser = true;
@@ -114,6 +116,7 @@
       };
   };
 
+  # allow printing
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -123,6 +126,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    parted
     git
     wl-clipboard
 

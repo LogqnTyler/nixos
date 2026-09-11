@@ -35,5 +35,30 @@
       jdk
       jdt-language-server
     ];
+
+    plugins = {
+      vscode = ''
+        return {
+          {
+            "Mofiqul/vscode.nvim",
+            lazy = false,
+            priority = 1000,
+            config = function()
+              vim.o.background = "dark"
+              require("vscode").setup({
+                transparent = false,
+              })
+              require("vscode").load()
+            end,
+          },
+          {
+            "LazyVim/LazyVim",
+            opts = {
+              colorscheme = "vscode",
+            },
+          },
+        }
+      '';
+    };
   };
 }
