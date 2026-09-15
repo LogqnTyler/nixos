@@ -2,10 +2,7 @@
 
 {
   imports = [
-    ../../modules/home-manager/lazyvim.nix
-    ../../modules/home-manager/github.nix
-    ../../modules/home-manager/agents.nix
-    ../../modules/home-manager/ghostty.nix
+    ../../modules/home-manager
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -36,7 +33,6 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     hello
-    uv
     signal-desktop
     jetbrains.idea
     gh
