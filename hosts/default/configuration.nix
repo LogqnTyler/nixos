@@ -129,6 +129,8 @@
     parted
     git
     wl-clipboard
+    unzip
+    zoxide
 
 #  wget
   ];

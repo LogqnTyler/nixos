@@ -9,5 +9,5 @@
         && name != "default.nix";
     in
       map (name: dir + "/${name}")
-        (builtins.attrNames (lib.filtersAttr isModule (builtins.readDir dir)));
+        (builtins.attrNames (lib.filterAttrs isModule (builtins.readDir dir)));
 }

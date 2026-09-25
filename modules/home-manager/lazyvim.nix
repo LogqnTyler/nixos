@@ -2,7 +2,16 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+let
+  # Quarto 1.10 emits this option, but nixpkgs' Pandoc 3.7 expects the old name.
+  quartoPatched = pkgs.quarto.overrideAttrs (old: {
+    postFixup = (old.postFixup or "") + ''
+      substituteInPlace $out/bin/quarto.js \
+        --replace-fail "syntax-highlighting" "highlight-style"
+    '';
+  });
+in {
   imports = [
     inputs.lazyvim.homeManagerModules.default
   ];
@@ -28,6 +37,11 @@
       installDependencies = true;
       installRuntimeDependencies = true;
     };
+
+    config.options = ''
+      vim.opt.background = "light"
+      vim.opt.mouse = ""
+      '';
 
     config.autocmds = ''
       LazyVim.on_load("mini.pairs", function()
@@ -65,22 +79,33 @@
       alejandra
       jdk
       jdt-language-server
+      quartoPatched
     ];
 
     plugins = {
+      quarto = ''
+        return {
+          {
+            "quarto-dev/quarto-nvim",
+            dependencies = {
+              "jmbuhr/otter.nvim",
+              "nvim-treesitter/nvim-treesitter",
+            },
+            opts = {},
+          },
+        }
+      '';
+
       vscode = ''
         return {
           {
             "Mofiqul/vscode.nvim",
             lazy = false,
             priority = 1000,
-            config = function()
-              vim.o.background = "dark"
-              require("vscode").setup({
-                transparent = false,
-              })
-              require("vscode").load()
-            end,
+            opts = {
+              style = "light",
+              transparent = false,
+            },
           },
           {
             "LazyVim/LazyVim",

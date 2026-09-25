@@ -36,6 +36,7 @@
     signal-desktop
     jetbrains.idea
     gh
+    starship
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -65,6 +66,17 @@
     # '';
   };
 
+  programs.bash = {
+    enable = true;
+
+    shellAliases = {
+      g = "git";
+      gcm = "git commit -m";
+      gcam = "git commit -a -m";
+      gcad = "git commit -a --amend";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+};};
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell

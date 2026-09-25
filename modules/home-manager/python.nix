@@ -1,6 +1,6 @@
 {pkgs, inputs, ...}: {
-  home.pkgs = [
+  home.packages = with pkgs; [
     jetbrains.pycharm
     uv
-  ]
+  ];
 }
