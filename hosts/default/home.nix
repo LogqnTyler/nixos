@@ -37,6 +37,9 @@
     jetbrains.idea
     gh
     starship
+    statix
+    keepassxc
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -76,7 +79,37 @@
       gcad = "git commit -a --amend";
       ".." = "cd ..";
       "..." = "cd ../..";
-};};
+};  
+    initExtra = ''
+      eval "$(zoxide init bash)"
+    alias cd="zd"
+
+    zd() {
+      if (( $# == 0 )); then
+        builtin cd ~ || return
+      elif [[ -d $1 ]]; then
+        builtin cd "$1" || return
+      else
+        if ! z "$@"; then
+          echo "Error: Directory not found"
+          return 1
+        fi
+
+        printf "\U000F17A9 "
+        pwd
+      fi
+    }
+  '';
+  };
+
+  programs.readline = {
+    enable = true;
+
+      variables = {
+    completion-ignore-case = "on";
+  };
+  };
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
