@@ -44,6 +44,14 @@ in {
       '';
 
     config.autocmds = ''
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "nix",
+        callback = function()
+          vim.opt_local.autoindent = true
+          vim.opt_local.smartindent = true
+        end,
+      })
+
       LazyVim.on_load("mini.pairs", function()
         local function setup_typst_pairs(args)
           MiniPairs.map_buf(args.buf, "i", "$", {

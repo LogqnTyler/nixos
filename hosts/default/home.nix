@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -23,9 +23,8 @@
     };
 
     "org/gnome/desktop/peripherals/keyboard" = {
-      delay = 100;
-      repeat-interval = 70;
-    };
+ delay = lib.hm.gvariant.mkUint32 200;
+repeat-interval = lib.hm.gvariant.mkUint32 70;         };
   };
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -39,6 +38,7 @@
     starship
     statix
     keepassxc
+    jetbrains.pycharm 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

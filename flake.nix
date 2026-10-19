@@ -28,17 +28,28 @@
     # it's a better practice than "default" shown in the video
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.default
           nix-snapd.nixosModules.default
-	    {
-	      services.snap.enable = true;
-	    }
+          {
+            services.snap.enable = true;
+          }
 	];
       };
 
+      miner = self.nixosConfigurations.default.extendModules {
+        modules = [ ./hosts/miner/configuration.nix ];
+      };
+
+      zimaboard = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/zima/configuration.nix
+        ];
+      };
     };
   };
 }
