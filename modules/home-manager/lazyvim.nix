@@ -43,6 +43,33 @@ in {
       vim.opt.mouse = ""
       '';
 
+    config.keymaps = ''
+      vim.api.nvim_create_user_command("Jr", function()
+        if vim.bo.filetype ~= "java" then
+          vim.notify("Not a Java file", vim.log.levels.WARN)
+          return
+        end
+        vim.cmd("write")
+        local file = vim.fn.expand("%:p")
+        local dir = vim.fn.expand("%:p:h")
+        local class = vim.fn.expand("%:t:r")
+        local escape = vim.fn.shellescape
+        local command = "(cd " .. escape(dir)
+          .. " && javac -d .build -sourcepath . "
+          .. escape(file)
+          .. " && java -cp .build "
+          .. escape(class)
+          .. ")"
+
+        local terminal = assert(Snacks.terminal.get(nil, { cwd = LazyVim.root() }))
+        terminal:show():focus()
+        vim.api.nvim_chan_send(vim.b[terminal.buf].terminal_job_id, command .. "\n")
+        vim.cmd("startinsert")
+      end, { desc = "Compile and run current Java file" })
+
+      vim.cmd([[cnoreabbrev <expr> jr (getcmdtype() ==# ':' && getcmdline() ==# 'jr') ? 'Jr' : 'jr']])
+    '';
+
     config.autocmds = ''
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "nix",
@@ -80,8 +107,8 @@ in {
           setup_typst_pairs({ buf = vim.api.nvim_get_current_buf() })
         end
       end)
-    '';
 
+    '';
     extraPackages = with pkgs; [
       nixd
       alejandra
@@ -123,6 +150,17 @@ in {
           },
         }
       '';
+
+      rainbow-12 = ''
+        return {
+          {
+            "0Risotto/rainbow12",
+            lazy = false,
+            priority = 1000,
+            config = function() vim.cmd "colorscheme rainbow12" end,
+          },
+        }
+            '';
     };
   };
 }

@@ -3,7 +3,7 @@
     enable = true;
 
     settings = {
-      theme = "CLRS";
+      theme = "12-bit Rainbow";
       font-family = "JetBrainsMono Nerd Font";
       font-size = 12;
     };

@@ -2,8 +2,10 @@
   programs.git = {
     enable = true;
 
-    userName = "Logan Foster";
-    userEmail = "zup7mn@virginia.edu";
+    settings = {
+      user.name = "Logan Foster";
+      user.email = "zup7mn@virginia.edu";
+    };
 
     includes = [
       {
