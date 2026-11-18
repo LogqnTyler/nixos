@@ -7,6 +7,11 @@
     nix-snapd.url = "github:nix-community/nix-snapd";
     nix-snapd.inputs.nixpkgs.follows = "nixpkgs";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
