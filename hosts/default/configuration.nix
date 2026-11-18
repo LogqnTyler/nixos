@@ -2,14 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -46,7 +51,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm = {
     enable = true;
@@ -55,9 +59,10 @@
 
   services.xserver.desktopManager.gnome.enable = true;
 
-  services.xserver.desktopManager.xfce.enable = false;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -90,35 +95,35 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-
   services.tailscale.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."logan" = {
     isNormalUser = true;
     description = "Logan Foster";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
-    brave
-    uv
-    docker
-    tmux
-    #  thunderbird
+      brave
+      uv
+      docker
+      tmux
+      #  thunderbird
     ];
   };
 
   programs.nix-ld.enable = true;
 
   home-manager = {
-      useGlobalPkgs = true;
-      extraSpecialArgs = { inherit inputs; };
-      users = {
-        "logan" = import ./home.nix;
-      };
+    useGlobalPkgs = true;
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      "logan" = import ./home.nix;
+    };
   };
 
   # allow printing
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -132,7 +137,7 @@
     unzip
     zoxide
 
-#  wget
+    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
