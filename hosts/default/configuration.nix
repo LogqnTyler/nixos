@@ -22,7 +22,8 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "logan-laptop"; # Define your hostname.
+  # DONT define hostname since it conflicts with fw13's name'
+  # networking.hostName = "logan-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
