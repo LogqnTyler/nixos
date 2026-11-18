@@ -60,10 +60,10 @@
 
         fw13 = self.nixosConfigurations.default.extendModules {
           modules = [
+            inputs.disko.nixosModules.default
             ./hosts/fw13/configuration.nix
             ./hosts/fw13/disko.nix
           ];
-
         };
       };
     };
