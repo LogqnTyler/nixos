@@ -1,5 +1,7 @@
 # hosts/fw13/configuration.nix
 { pkgs, ... }: {
+
+  imports = [ ./hardware-configuration.nix ];
   networking.hostName = "fw13";
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
