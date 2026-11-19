@@ -6,7 +6,6 @@
   config,
   pkgs,
   inputs,
-  lib,
   ...
 }:
 
@@ -23,10 +22,8 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # We set the default hostname as something basic so that it can be overwritten by the other flakes
-
-
-  networking.hostName = lib.mkDefault "default-hostname"; # Define your hostname.
+  # DONT define hostname since it conflicts with fw13's name'
+  # networking.hostName = "logan-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
