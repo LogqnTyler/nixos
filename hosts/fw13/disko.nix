@@ -16,7 +16,15 @@
           };
         };
         root = {
-          size = "100%";
+          size = "75%";
+          content = {
+            type = "filesystem";
+            format = "ext4";
+            mountpoint = "/";
+          };
+        };
+        win = {
+          size = "75%";
           content = {
             type = "filesystem";
             format = "ext4";
