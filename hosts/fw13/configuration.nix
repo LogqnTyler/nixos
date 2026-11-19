@@ -1,8 +1,6 @@
 # hosts/fw13/configuration.nix
 { pkgs, ... }: {
 
-  # Enable niri
-  programs.niri.enable = true;
 
   imports = [ ./hardware-configuration.nix ];
   networking.hostName = "fw13";
@@ -12,6 +10,8 @@
   services.fwupd.enable = true;
   # system.stateVersion = "26.05"; # the installer's release, not the old host's value
   #
+
+  programs.dms-shell.enable = true;
 
   # setting up intel graphics according to https://wiki.nixos.org/wiki/Intel_Graphics
   services.xserver.videoDrivers = [ "modesetting" ];
