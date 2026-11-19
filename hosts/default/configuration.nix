@@ -57,7 +57,8 @@
 
   };
 
-  services.xserver.desktopManager.gnome.enable = true;
+# GNOME unless the host enables niri.
+  services.desktopManager.gnome.enable = !config.programs.niri.enable;
 
   nix.settings.experimental-features = [
     "nix-command"

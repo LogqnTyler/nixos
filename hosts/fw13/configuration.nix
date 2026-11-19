@@ -11,7 +11,8 @@
   # system.stateVersion = "26.05"; # the installer's release, not the old host's value
   #
 
-  programs.dms-shell.enable = true;
+  programs.niri.enable = true;
+  programs.dux-shell.enable = true;
 
   # setting up intel graphics according to https://wiki.nixos.org/wiki/Intel_Graphics
   services.xserver.videoDrivers = [ "modesetting" ];
