@@ -23,14 +23,6 @@
             mountpoint = "/";
           };
         };
-        win = {
-          size = "75%";
-          content = {
-            type = "filesystem";
-            format = "ext4";
-            mountpoint = "/";
-          };
-        };
       };
     };
   };

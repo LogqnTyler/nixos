@@ -15,28 +15,36 @@ in {
   imports = [
     inputs.lazyvim.homeManagerModules.default
   ];
+  
+
+  programs.neovim.defaultEditor = true;
 
   programs.lazyvim = {
     enable = true;
 
-    extras.lang.nix.enable = true;
 
-    extras.lang.typst = {
+
+    extras.lang = {
+      nix.enable = true;
+
+      typst = {
       enable = true;
       installDependencies = true; # Install tinymist
     };
 
-    extras.lang.python = {
+    python = {
       enable = true;
       installDependencies = true; # Install ruff
       installRuntimeDependencies = true; # Install python3
     };
 
-    extras.lang.java = {
+    java = {
       enable = true;
       installDependencies = true;
       installRuntimeDependencies = true;
     };
+    };
+
 
     config.options = ''
       vim.opt.background = "light"
