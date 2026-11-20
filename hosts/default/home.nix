@@ -24,7 +24,22 @@
 
     "org/gnome/desktop/peripherals/keyboard" = {
  delay = lib.hm.gvariant.mkUint32 150;
-repeat-interval = lib.hm.gvariant.mkUint32 50;         };
+  repeat-interval = lib.hm.gvariant.mkUint32 50;         };
+
+  sops = {
+      age.keyFile = "/home/logan/.config/sops/age/keys.txt"; # must have no password!
+
+      defaultSopsFile = ~/nixos/secrets/secrets.yaml;
+      defaultSymlinkPath = "/run/user/1000/secrets";
+      defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+
+    secrets.github_ssh_key.path = "${config.home.homeDirectory}/.ssh/id_ed25519_github";
+
+      };
+
+  programs.ssh.enable = true;
+
+  home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -41,7 +56,8 @@ repeat-interval = lib.hm.gvariant.mkUint32 50;         };
     jetbrains.pycharm 
 
     age
-    sops
+
+    fuzzel
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

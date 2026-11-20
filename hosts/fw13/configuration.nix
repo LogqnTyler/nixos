@@ -1,5 +1,5 @@
 # hosts/fw13/configuration.nix
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }: {
 
 
   imports = [ ./hardware-configuration.nix ];
@@ -11,8 +11,12 @@
   # system.stateVersion = "26.05"; # the installer's release, not the old host's value
   #
 
-  programs.niri.enable = true;
-  programs.dux-shell.enable = true;
+  useNiri = true;
+
+  programs.niri.enable = config.useNiri;
+  programs.dux-shell.enable = config.useNiri ;
+
+
 
   # setting up intel graphics according to https://wiki.nixos.org/wiki/Intel_Graphics
   services.xserver.videoDrivers = [ "modesetting" ];

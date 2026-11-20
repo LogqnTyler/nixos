@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +39,7 @@
       self,
       nixpkgs,
       nix-snapd,
+    sops-nix,
       ...
     }@inputs:
     {
@@ -45,10 +51,15 @@
           modules = [
             ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
-            nix-snapd.nixosModules.default
-            {
-              services.snap.enable = true;
-            }
+            
+            sops-nix.nixosModules.sops
+            #
+            #
+            #
+            # nix-snapd.nixosModules.default
+            # {
+            #   services.snap.enable = true;
+            # }
           ];
         };
 

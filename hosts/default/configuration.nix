@@ -6,14 +6,21 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
 {
+
   imports = [
     # Include the results of the hardware scan.
     inputs.home-manager.nixosModules.default
   ];
+
+  options.useNiri = lib.mkEnableOption "Enable Niri";
+
+  config = {
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -51,14 +58,14 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+    # GNOME unless the host enables niri.
+    services.desktopManager.gnome.enable = !config.useNiri;
+
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm = {
     enable = true;
-
   };
 
-# GNOME unless the host enables niri.
-  services.desktopManager.gnome.enable = !config.programs.niri.enable;
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -167,5 +174,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
+  };
+
 
 }

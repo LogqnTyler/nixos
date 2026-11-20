@@ -22,8 +22,6 @@ in {
   programs.lazyvim = {
     enable = true;
 
-
-
     extras.lang = {
       nix.enable = true;
 
@@ -119,7 +117,7 @@ in {
     '';
     extraPackages = with pkgs; [
       nixd
-      alejandra
+      nixfmt
       jdk
       jdt-language-server
       quartoPatched
