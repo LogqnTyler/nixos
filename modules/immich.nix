@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 
 {
   services.immich = {
@@ -16,12 +16,12 @@
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-    intel-media-driver
-    vpl-gpu-rt
-  ];
+      intel-media-driver
+      vpl-gpu-rt
+    ];
   };
 
-  users.user.immich.extraGroups = [
+  users.users.immich.extraGroups = [
     "render"
     "video"
   ];

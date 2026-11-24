@@ -11,11 +11,11 @@ let
         --replace-fail "syntax-highlighting" "highlight-style"
     '';
   });
-in {
+in
+{
   imports = [
     inputs.lazyvim.homeManagerModules.default
   ];
-  
 
   programs.neovim.defaultEditor = true;
 
@@ -26,28 +26,26 @@ in {
       nix.enable = true;
 
       typst = {
-      enable = true;
-      installDependencies = true; # Install tinymist
-    };
+        enable = true;
+        installDependencies = true; # Install tinymist
+      };
 
-    python = {
-      enable = true;
-      installDependencies = true; # Install ruff
-      installRuntimeDependencies = true; # Install python3
-    };
+      python = {
+        enable = true;
+        installDependencies = true; # Install ruff
+        installRuntimeDependencies = true; # Install python3
+      };
 
-    java = {
-      enable = true;
-      installDependencies = true;
-      installRuntimeDependencies = true;
+      java = {
+        enable = true;
+        installDependencies = false;
+        installRuntimeDependencies = true;
+      };
     };
-    };
-
 
     config.options = ''
-      vim.opt.background = "light"
       vim.opt.mouse = ""
-      '';
+    '';
 
     config.keymaps = ''
       vim.api.nvim_create_user_command("Jr", function()
@@ -124,6 +122,17 @@ in {
     ];
 
     plugins = {
+      typst-preview = ''
+        return {
+          {
+            "chomosuke/typst-preview.nvim",
+            opts = {
+              open_cmd = "xdg-open '%s' 2>/dev/null",
+            },
+          },
+        }
+      '';
+
       quarto = ''
         return {
           {
@@ -137,36 +146,34 @@ in {
         }
       '';
 
-      vscode = ''
+      theme = ''
         return {
           {
-            "Mofiqul/vscode.nvim",
-            lazy = false,
-            priority = 1000,
-            opts = {
-              style = "light",
-              transparent = false,
-            },
+            "catppuccin/nvim",
+            name = "catppuccin",
+            opts = {},
           },
+          { "0Risotto/rainbow12" },
           {
             "LazyVim/LazyVim",
+            opts = { colorscheme = "rainbow12" },
+          },
+          {
+            "f-person/auto-dark-mode.nvim",
+            lazy = false,
             opts = {
-              colorscheme = "vscode",
+              set_light_mode = function()
+                vim.opt.background = "light"
+                vim.cmd.colorscheme("catppuccin-latte")
+              end,
+              set_dark_mode = function()
+                vim.opt.background = "dark"
+                vim.cmd.colorscheme("rainbow12")
+              end,
             },
           },
         }
       '';
-
-      rainbow-12 = ''
-        return {
-          {
-            "0Risotto/rainbow12",
-            lazy = false,
-            priority = 1000,
-            config = function() vim.cmd "colorscheme rainbow12" end,
-          },
-        }
-            '';
     };
   };
 }

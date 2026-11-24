@@ -1,8 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [
     ../../modules/home-manager
+    inputs.sops-nix.homeManagerModules.sops
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -19,28 +26,28 @@
   home.stateVersion = "26.05"; # Please read the comment before changing.
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
-      xkb-options = ["caps:swapescape"];
+      xkb-options = [ "caps:swapescape" ];
     };
 
     "org/gnome/desktop/peripherals/keyboard" = {
- delay = lib.hm.gvariant.mkUint32 150;
-  repeat-interval = lib.hm.gvariant.mkUint32 50;         };
+      delay = lib.hm.gvariant.mkUint32 150;
+      repeat-interval = lib.hm.gvariant.mkUint32 50;
+    };
+  };
 
   sops = {
-      age.keyFile = "/home/logan/.config/sops/age/keys.txt"; # must have no password!
+    age.keyFile = "/home/logan/.config/sops/age/keys.txt"; # must have no password!
 
-      defaultSopsFile = ~/nixos/secrets/secrets.yaml;
-      defaultSymlinkPath = "/run/user/1000/secrets";
-      defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSymlinkPath = "/run/user/1000/secrets";
+    defaultSecretsMountPoint = "/run/user/1000/secrets.d";
 
     secrets.github_ssh_key.path = "${config.home.homeDirectory}/.ssh/id_ed25519_github";
 
-      };
+  };
 
   programs.ssh.enable = true;
 
-  home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
-  };
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -53,11 +60,21 @@
     starship
     statix
     keepassxc
-    jetbrains.pycharm 
+    jetbrains.pycharm
 
     age
 
     fuzzel
+
+    sioyek # pdf reader
+
+    (whatsapp-electron.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace src/main.js --replace-fail \
+          $'e.preventDefault();\n\t\t\tthis.window.hide();' \
+          'this.isQuit = true;'
+      '';
+    }))
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -98,35 +115,35 @@
       gcad = "git commit -a --amend";
       ".." = "cd ..";
       "..." = "cd ../..";
-};  
+    };
     initExtra = ''
-      eval "$(zoxide init bash)"
-    alias cd="zd"
+        eval "$(zoxide init bash)"
+      alias cd="zd"
 
-    zd() {
-      if (( $# == 0 )); then
-        builtin cd ~ || return
-      elif [[ -d $1 ]]; then
-        builtin cd "$1" || return
-      else
-        if ! z "$@"; then
-          echo "Error: Directory not found"
-          return 1
+      zd() {
+        if (( $# == 0 )); then
+          builtin cd ~ || return
+        elif [[ -d $1 ]]; then
+          builtin cd "$1" || return
+        else
+          if ! z "$@"; then
+            echo "Error: Directory not found"
+            return 1
+          fi
+
+          printf "\U000F17A9 "
+          pwd
         fi
-
-        printf "\U000F17A9 "
-        pwd
-      fi
-    }
-  '';
+      }
+    '';
   };
 
   programs.readline = {
     enable = true;
 
-      variables = {
-    completion-ignore-case = "on";
-  };
+    variables = {
+      completion-ignore-case = "on";
+    };
   };
 
   # Home Manager can also manage your environment variables through

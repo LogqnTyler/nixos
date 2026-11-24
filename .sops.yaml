@@ -1,7 +1,0 @@
-keys:
-- &host_fw13 age17tvayetrtzlx3yn6sr5e28806mlhztx0sf9wlxymxe78r0j3kp2ql4hpz6
-creation_rules:
-  - path_regex: secrets.yaml$
-    key_groups:
-      - age:
-        - *host_fw13

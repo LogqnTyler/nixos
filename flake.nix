@@ -39,7 +39,7 @@
       self,
       nixpkgs,
       nix-snapd,
-    sops-nix,
+      sops-nix,
       ...
     }@inputs:
     {
@@ -51,7 +51,7 @@
           modules = [
             ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
-            
+
             sops-nix.nixosModules.sops
             #
             #
@@ -67,11 +67,14 @@
           modules = [ ./hosts/miner/configuration.nix ];
         };
 
-        zimaboard = nixpkgs.lib.nixosSystem {
+        zima = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            inputs.disko.nixosModules.default
             ./hosts/zima/configuration.nix
+            ./hosts/zima/disko.nix
+
           ];
         };
 

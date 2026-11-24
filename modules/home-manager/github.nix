@@ -1,4 +1,4 @@
-{config, ...}:
+{ config, ... }:
 {
   programs = {
     git = {
@@ -21,13 +21,13 @@
 
     };
 
-  ssh.matchBlocks."github.com" = {
-    user = "git";
-    identityFile = config.sops.secrets.github_ssh_key.path;
-    identitiesOnly = true;
+    ssh.settings."github.com" = {
+      user = "git";
+      identityFile = config.sops.secrets.github_ssh_key.path;
+      identitiesOnly = true;
 
+    };
+
+    lazygit.enable = true;
   };
-
-  lazygit.enable = true;
-};
 }
