@@ -24,6 +24,8 @@ in
 
     extras.lang = {
       nix.enable = true;
+      clangd.enable = true;
+      yaml.enable = true;
 
       typst = {
         enable = true;
@@ -119,6 +121,8 @@ in
       jdk
       jdt-language-server
       quartoPatched
+      clang-tools
+      yaml-language-server
     ];
 
     plugins = {
