@@ -88,7 +88,7 @@
     hardware.bluetooth.enable = true;
 
     # enable connection to iphone with usb (For hotspot)
-    
+
     services.usbmuxd.enable = true;
 
     # Enable sound with pipewire.

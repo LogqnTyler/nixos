@@ -7,11 +7,15 @@
 }:
 {
 
-  imports = [ 
-    ./hardware-configuration.nix 
+  imports = [
+    ./hardware-configuration.nix
     ../../modules/nixos/niri.nix
 
   ];
+
+  useNiri = true;
+  useDux = false;
+
   networking.hostName = "sandtrout";
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
@@ -26,7 +30,6 @@
   services.power-profiles-daemon.enable = true;
   # system.stateVersion = "26.05"; # the installer's release, not the old host's value
   #
-
 
   # setting up intel graphics according to https://wiki.nixos.org/wiki/Intel_Graphics
   services.xserver.videoDrivers = [ "modesetting" ];

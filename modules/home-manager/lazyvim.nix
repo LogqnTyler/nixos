@@ -126,6 +126,21 @@ in
     ];
 
     plugins = {
+      # points lazyvim to nixd instead of nil_ls
+      nix-lsp = ''
+        return {
+          {
+            "neovim/nvim-lspconfig",
+            opts = {
+              servers = {
+                nil_ls = { enabled = false },
+                nixd = { mason = false },
+              },
+            },
+          },
+        }
+      '';
+
       conform = ''
         return {
           {
