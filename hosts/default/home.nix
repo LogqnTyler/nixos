@@ -43,6 +43,16 @@
     defaultSecretsMountPoint = "/run/user/1000/secrets.d";
 
     secrets.github_ssh_key.path = "${config.home.homeDirectory}/.ssh/id_ed25519_github";
+    secrets.tpv_ssh_key.path = "${config.home.homeDirectory}/.ssh/tpv_ssh_key";
+
+    secrets."gcp-shared-networks-reader.json" = {
+      sopsFile = ../../secrets/gcp-shared-networks-reader.json;
+      format = "binary";
+      mode = "0400";
+      path = "${config.home.homeDirectory}/agents/secrets/gcp-shared-networks-reader.json";
+    };
+
+    
 
   };
 
@@ -62,7 +72,10 @@
     keepassxc
     jetbrains.pycharm
 
+    google-cloud-sdk
+
     age
+    sops
 
     fuzzel
 

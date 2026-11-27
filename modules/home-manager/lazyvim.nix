@@ -126,6 +126,16 @@ in
     ];
 
     plugins = {
+      conform = ''
+        return {
+          {
+            "stevearc/conform.nvim",
+            -- lazy.nvim's require-based loading doesn't match the Nix dev path.
+            lazy = false,
+          },
+        }
+      '';
+
       typst-preview = ''
         return {
           {

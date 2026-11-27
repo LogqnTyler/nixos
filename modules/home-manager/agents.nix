@@ -14,6 +14,10 @@
     pkgs.opencode
 
     pkgs.chromium
+
+    pkgs.cursor-cli
+
+    pkgs.nono
   ];
 
 }

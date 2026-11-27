@@ -18,6 +18,7 @@
   ];
 
   options.useNiri = lib.mkEnableOption "Enable Niri";
+  options.useDux = lib.mkEnableOption "Enable DUX";
 
   config = {
 

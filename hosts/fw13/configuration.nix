@@ -7,8 +7,12 @@
 }:
 {
 
-  imports = [ ./hardware-configuration.nix ];
-  networking.hostName = "fw13";
+  imports = [ 
+    ./hardware-configuration.nix 
+    ../../modules/nixos/niri.nix
+
+  ];
+  networking.hostName = "sandtrout";
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
   # boot.kernelPackages = pkgs.linuxPackages_latest; # guide: non-LTS kernel
@@ -23,13 +27,6 @@
   # system.stateVersion = "26.05"; # the installer's release, not the old host's value
   #
 
-  useNiri = true;
-  programs.niri.enable = config.useNiri;
-  programs.dux-shell.enable = config.useNiri;
-  services.displayManager.dux-greeter = {
-    enable = true;
-    compositor.name = "niri";
-  };
 
   # setting up intel graphics according to https://wiki.nixos.org/wiki/Intel_Graphics
   services.xserver.videoDrivers = [ "modesetting" ];
