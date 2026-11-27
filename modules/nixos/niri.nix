@@ -2,7 +2,7 @@
   pkgs,
   lib,
   config,
-  options,
+  utils,
   ...
 }:
 {
@@ -10,7 +10,14 @@
   options.niri.default_wallpaper = lib.mkOption {
     type = lib.types.str;
     default = "/home/logan/Pictures/WallPapers/3411059_prisonercoin_slow-end.gif";
+    # attr: https://www.newgrounds.com/art/view/prisonercoin/slow-end
     description = "Path to the system's default wallpaper";
+  };
+
+  options.niri.wallpaper = lib.mkOption {
+    type = lib.types.str;
+    default = config.niri.default_wallpaper;
+    description = "Path to the system's current wallpaper";
   };
 
   config = lib.mkIf config.useNiri (
@@ -34,7 +41,10 @@
 
       (lib.mkIf (!config.useDux) {
 
-        environment.systemPackages = [ pkgs.awww ];
+        environment.systemPackages = [
+          pkgs.awww
+          pkgs.brightnessctl # backlight control for XF86MonBrightness keys
+        ];
 
         systemd.user.services.awww = {
           description = "Animated wallpaper daemon";
@@ -43,7 +53,9 @@
           partOf = [ "niri.service" ];
           serviceConfig = {
             ExecStart = "${pkgs.awww}/bin/awww-daemon";
-            ExecStartPost = "${pkgs.awww}/bin/awww img ${config.niri.default_wallpaper}";
+            ExecStartPost = "${pkgs.awww}/bin/awww img ${
+              utils.escapeSystemdExecArgs [ config.niri.wallpaper ]
+            }";
             Restart = "on-failure";
           };
         };

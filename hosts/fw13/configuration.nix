@@ -13,9 +13,16 @@
 
   ];
 
+  # Theme Settings
   useNiri = true;
   useDux = false;
 
+  niri.wallpaper = "${config.users.users.logan.home}/Pictures/WallPapers/waneella/GIFs/Zephyr_waneella.gif";
+  # niri.wallpaper = "${config.users.users.logan.home}/Pictures/WallPapers/waneella/GIFs/Abyss_waneella.gif";
+  # niri.wallpaper = "${config.users.users.logan.home}/Pictures/WallPapers/waneella/Wallpaper packs/waneella motionless wallpaper pack jun'19/Satellite_Six_Pt3_5200x2600.png";
+  # /Pictures/WallPapers/waneella/GIFs/Abyss_waneella.gif, Pictures/WallPapers/waneella/GIFs/Zephyr_waneella.gif
+
+  # Normal settings
   networking.hostName = "sandtrout";
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
@@ -42,10 +49,10 @@
 
       # Optional (compute / tooling):
       intel-compute-runtime # OpenCL (NEO) + Level Zero for Arc/Xe
-      # NOTE: 'intel-ocl' also exists as a legacy package; not recommended for Arc/Xe.
-      # libvdpau-va-gl       # Only if you must run VDPAU-only apps
+
     ];
   };
+
   swapDevices = [
     {
       device = "/swapfile";
